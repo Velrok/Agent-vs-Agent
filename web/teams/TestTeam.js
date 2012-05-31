@@ -18,13 +18,13 @@ function TeamAAgent() {
 	}
 
 	this.chooseAction = function(){
-		console.log(this.getType() + ".chooseAction() -> move")
+		//console.log(this.getType() + ".chooseAction() -> move")
 		return "move";
 	}
 
 	this.getMoveDirection = function() {
 		var direction = getRandomDirection();
-		console.log(this.getType() + ".getMoveDirection() -> " + direction)
+		//console.log(this.getType() + ".getMoveDirection() -> " + direction)
 		return direction;
 	}
 
@@ -33,25 +33,36 @@ function TeamAAgent() {
 	}
 
 	this.newSurrounding = function(surrounding){
-		console.log(this.getType() + " surrounding: " + surrounding);
+		//console.log(this.getType() + " surrounding: " + surrounding);
 	}
 	
 }
 
 
 function TeamBAgent() {
+	this.nextAction = "move";
+	this.gotPoint = false;
+
 	this.getType = function(){
 		return "TeamBAgent";
 	}
 
 	this.chooseAction = function(){
-		console.log(this.getType() + ".chooseAction() -> move")
-		return "move";	
+		var currentAction = this.nextAction;
+		// default back to move after an arbitrary action
+		this.nextAction = "move";
+		return currentAction;
 	}
 
 	this.getMoveDirection = function() {
-		var direction = getRandomDirection();
-		console.log(this.getType() + ".getMoveDirection() -> " + direction)
+		var direction;
+		if(this.gotPoint){
+			direction = "NE";
+		} else {
+			direction = getRandomDirection();
+		}
+
+		//console.log(this.getType() + ".getMoveDirection() -> " + direction)
 		return direction;
 	}
 
@@ -60,6 +71,24 @@ function TeamBAgent() {
 	}
 
 	this.newSurrounding = function(surrounding){
-		
+		if(surrounding.C != null
+			&& surrounding.C.indexOf("Point") >= 0
+			&& !this.gotPoint ){
+			this.nextAction = "collect";
+		}
+	}
+
+	this.pointCollected = function(){
+		console.log("point collected :)");
+		this.gotPoint = true;
+	}
+
+	this.pointNotCollected = function(){
+		console.log("point not collected :(");
+	}
+
+	this.pointScored = function(){
+		console.log("point scored!!!! :D ");
+		this.gotPoint = false;
 	}
 }

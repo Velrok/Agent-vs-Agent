@@ -1,5 +1,6 @@
+
 var visualizeGamingFieldInto = function(field, domObj) {
-	console.log("visualizeGamingFieldInto called");
+	//console.log("visualizeGamingFieldInto called");
 
 	var html = "";
 
@@ -19,7 +20,7 @@ var visualizeGamingFieldInto = function(field, domObj) {
 			//console.log(items);
 			items.foreach(function(k,v){
 				//console.log(v);
-				html += "<div class=\""+ v.getType() +"\"></div>";
+				html += visualizeGamingFieldEntity(v);
 			});
 
 			html += "</td>";
@@ -29,4 +30,23 @@ var visualizeGamingFieldInto = function(field, domObj) {
 	html += "</table>";
 
 	$(domObj).html(html);
+}
+
+var visualizeGamingFieldEntity = function(entity){
+	html = "<div class=\"";
+
+	html += entity.getType();
+
+	if(entity.getType() == "agent"){
+		
+		html += " " +entity.getTeam();
+
+		if(entity.hasPoint()){
+			html += "_got_point ";
+		}
+	}
+
+	html += "\"></div>";	
+
+	return html;
 }

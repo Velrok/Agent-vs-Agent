@@ -121,26 +121,40 @@ body {
 	float: left;
 }
 
-#gaming_field .TeamAAgent {
+#gaming_field .agent {
 	width: 2em;
 	height: 2em;
 	float: left;
-	background-image: url(../images/agent_red.png);
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	background-size: auto 100%;
 	margin: 0px;
 	padding: 0px;
-}
 
-#gaming_field .TeamBAgent {
-	width: 2em;
-	height: 2em;
-	float: left;
-	background-image: url(../images/agent_blue.png);
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-size: auto 100%;
+
+}
+
+#gaming_field .team_a {
+	background-image: url(../images/agent_red.png);
+}
+
+#gaming_field .team_a_got_point {
+	background-image: url(../images/agent_red_point.png);
+}
+
+#gaming_field .team_b {
+	background-image: url(../images/agent_blue.png);
+}
+
+#gaming_field .team_b_got_point {
+	background-image: url(../images/agent_blue_point.png);
+}
+
+#gaming_field .got_point {
+	background-image: url(../images/agent_blue.png);
+	background-repeat: no-repeat;
+	background-position: 75% 75%;
+	background-size: 25% 25%;
 }
 
 #main_log {

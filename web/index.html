@@ -37,7 +37,7 @@
 			gm.newGame();
 
 			var nextMove = function(){
-				console.log("nextMove");
+				//console.log("nextMove");
 				var hasNextMove = gm.nextMove();
 				//console.log("hasNextMove: " + hasNextMove);
 				if(hasNextMove){
@@ -47,11 +47,14 @@
 				}
 
 				visualizeGamingFieldInto(gm.gamingField, gaming_field);
+
+				$('#teamAScore').html(gm.teamAScore);
+				$('#teamBScore').html(gm.teamBScore);
 			}
 
 
 			var timer = null;
-			var timeout = 1000;
+			var timeout = 300;
 
 			var startTimer = function(forced){
 				// if not already running -> start
@@ -87,8 +90,8 @@
 		<div id="page">
 			
 			<div id="page_header">
-				<span id="teamAScore" class="score">2</span>
-				<span id="teamBScore" class="score">1</span>
+				<span id="teamAScore" class="score">0</span>
+				<span id="teamBScore" class="score">0</span>
 			</div>
 
 			<div id="gaming_field">

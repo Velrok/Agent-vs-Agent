@@ -18,16 +18,30 @@ function GameMaster() {
 	 this.teamAScore = 0;
 	 this.teamBScore = 0;
 
+	 this.agentsWithPoints = [];
+
 	 this.nextAgentInLine = 0;
 
 	 this.resetAgents = function(agentsPerTeam){
 	 	this.teamAAgents = [];
 	 	this.teamBAgents = [];
+	 	this.agentsWithPoints = [];
 
 	 	for (var i = 0; i < agentsPerTeam; i++) {
-	 		this.teamAAgents.push(new TeamAAgent());
-	 		this.teamBAgents.push(new TeamBAgent());
+	 		var agentA = new TeamAAgent();
+	 		this.decorateAgent(agentA, "team_a");
+	 		this.teamAAgents.push(agentA);
+
+	 		var agentB = new TeamBAgent();
+	 		this.decorateAgent(agentB, "team_b");
+	 		this.teamBAgents.push(agentB);
 	 	}
+	 }
+
+	 this.decorateAgent = function(agent, team) {
+		AgentDecorator(agent);
+	 	TeamDecorator(agent, team);
+	 	PointDecorator(agent, false);
 	 }
 
 
@@ -147,6 +161,65 @@ function GameMaster() {
 
 		this.gamingField.place(agent, newPosition);
 		agent.newPosition(newPosition);
+
+		if(this.agentHasPoint(agent)
+			&& this.agentOnHomeBase(agent)){
+			
+				this.scorePoint(agent);
+				agent.pointScored();
+				this.removePointFromAgent(agent);
+		}
+	}
+
+	this.removePointFromAgent = function(agent){
+		var idx = this.agentsWithPoints.indexOf(agent);
+		this.agentsWithPoints.splice(idx, 1);
+		PointDecorator(agent, false);
+	}
+
+	this.scorePoint = function(agent){
+		switch(agent.getTeam()){
+			case "team_a":
+				this.teamAScore += 1;
+				break;
+			case "team_b":
+				this.teamBScore += 1;
+				break;
+			default:
+				console.log("Invalid agent type: " + agent.getType());
+				break;
+		}
+	}
+
+	this.agentHasPoint = function(agent){
+		return this.agentsWithPoints.indexOf(agent) >= 0
+	}
+
+	this.agentOnHomeBase = function(agent){
+		var agentPosition = this.gamingField.getCoordinatesOf(agent)
+
+		switch(agent.getTeam()){
+			case "team_a":
+				return this.arrayEqual(agentPosition, this.teamAHomeBase);
+			case "team_b":
+				return this.arrayEqual(agentPosition, this.teamBHomeBase);
+			default:
+				console.log("Invalid agent type: " + agent.getType());
+				return;
+		}
+	}
+
+	this.arrayEqual = function(array1, array2){
+		if(array1.length != array2.length){
+			return false;
+		}
+
+		for(var i = 0; i < array1.length; i++){
+			if(array1[i] != array2[i])
+				return false;
+		}
+
+		return true;
 	}
 
 	this.executeComunicate = function(agent){
@@ -154,7 +227,23 @@ function GameMaster() {
 	}
 
 	this.executeCollect = function(agent){
-		
+		if(this.agentsWithPoints.indexOf(agent) >= 0){
+			// this agent allready has a point collected
+			agent.pointNotCollected();
+			return;
+		}
+
+		var coordinates = this.gamingField.getCoordinatesOf(agent);
+		var enities = this.gamingField.getAll(coordinates);
+		for (var i = 0 ; i < enities.length; i++) {
+			var entity = enities[i];
+			if(entity.getType() == "Point"){
+				this.gamingField.remove(entity);
+				agent.pointCollected();
+				PointDecorator(agent, true);
+				this.agentsWithPoints.push(agent);
+			}
+		}
 	}
 
 	this.processChoice = function(agent, choice) {
@@ -202,7 +291,7 @@ function GameMaster() {
 
 	 	if((this.teamAScore + this.teamBScore) < this.pointsDistributed){
 	 		// there are still uncollected points
-	 		console.log("GameMaster.nextMove() : next agent in line: " + this.nextAgentInLine);
+	 		//console.log("GameMaster.nextMove() : next agent in line: " + this.nextAgentInLine);
 	 		var activeAgent = this.actingOrder[this.nextAgentInLine];
 	 		this.explainSurroundingsTo(activeAgent);
 	 		var choice = activeAgent.chooseAction();
@@ -219,11 +308,36 @@ function GameMaster() {
 
 	 this.newGame = function(){
 	 	this.resetGamingField();
-	 	this.resetAgents(1);
+	 	this.resetAgents(3);
 	 	this.placeAgents();
-	 	this.distributePoints(7);
+	 	this.distributePoints(14);
 	 	this.determinActingOrder();
 	 }
+
+}
+
+
+function AgentDecorator(agent) {
+
+	agent.getType = function(){
+		return "agent";
+	}
+
+}
+
+function TeamDecorator(agent, team) {
+
+	agent.getTeam = function(){
+		return String(team).toLowerCase();
+	}
+
+}
+
+function PointDecorator(agent, hasPoint) {
+
+	agent.hasPoint = function(){
+		return hasPoint;
+	}
 
 }
 
