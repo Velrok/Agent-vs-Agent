@@ -15,3 +15,24 @@ All points are distributed at random.
 To collect a point an agent has to stand on the same base as the point, collect it and return to the teams homebase.
 
 There is no limit to the amount of entities that occupy the same base on the board.
+
+## Install
+
+Checkout the [source from github](https://github.com/Velrok/Agent-vs-Agent).
+
+Use youre favorit browser to open <code>web/index.html</code>.
+
+## How to write youre own AI
+
+Currently the app assumes two classes <code>TeamAAgent</code> and <code>TeamBAgent</code>. 
+You can find the example/default implementations in <code>web/teams/TestTeam.js</code>
+
+Team B is the "smart" one. Currently Team A is like a headless chicken, just running around.
+
+Youre AI should be able to beat Team B quies easiely in a best of 5.
+
+## Feedback
+
+Please file bug reports in the [issues section](https://github.com/Velrok/Agent-vs-Agent/issues?state=open).
+
+I'm happy to head from you. Just drop me an [email](mailto:waldemar.schwan+agentvsagent@gmail.com).
