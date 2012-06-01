@@ -13,13 +13,29 @@ var getRandomDirection = function(){
 };
 
 function TeamAAgent() {
-	this.getType = function(){
-		return "TeamAAgent";
-	}
+	this.role = null;
 
 	this.chooseAction = function(){
-		//console.log(this.getType() + ".chooseAction() -> move")
-		return "move";
+		if(this.role == null){
+			return "comunicate";
+		} else {
+			return "move";
+		}
+	}
+
+	this.getMessage = function(){
+		if(this.role == null){
+			this.role = "scout"
+			return "collector"
+		}
+	}
+
+	this.receiveMessage = function(msg){
+		if(this.role == null){
+			this.role = msg;
+		}
+		log(this, "got Message: " + msg);
+		log(this, "my role is now: " + this.role);
 	}
 
 	this.getMoveDirection = function() {
@@ -33,7 +49,7 @@ function TeamAAgent() {
 	}
 
 	this.newSurrounding = function(surrounding){
-		//console.log(this.getType() + " surrounding: " + surrounding);
+		
 	}
 	
 }
@@ -42,10 +58,6 @@ function TeamAAgent() {
 function TeamBAgent() {
 	this.nextAction = "move";
 	this.gotPoint = false;
-
-	this.getType = function(){
-		return "TeamBAgent";
-	}
 
 	this.chooseAction = function(){
 		var currentAction = this.nextAction;

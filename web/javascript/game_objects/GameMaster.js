@@ -223,7 +223,21 @@ function GameMaster() {
 	}
 
 	this.executeComunicate = function(agent){
-		
+		var msg = String(agent.getMessage());
+		switch(agent.getTeam()){
+			case "team_a":
+				this.teamAAgents.foreach(function(i, v){
+					v.receiveMessage(msg);
+				});
+				break;
+			case "team_b":
+				this.teamBAgents.foreach(function(i, v){
+					v.receiveMessage(msg);
+				});
+				break;
+			default:
+				console.log("Unknown team: " + agent.getTeam());
+		}
 	}
 
 	this.executeCollect = function(agent){
@@ -308,9 +322,9 @@ function GameMaster() {
 
 	 this.newGame = function(){
 	 	this.resetGamingField();
-	 	this.resetAgents(3);
+	 	this.resetAgents(2);
 	 	this.placeAgents();
-	 	this.distributePoints(14);
+	 	this.distributePoints(10);
 	 	this.determinActingOrder();
 	 }
 

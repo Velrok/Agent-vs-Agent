@@ -27,9 +27,11 @@ Use youre favorit browser to open <code>web/index.html</code>.
 Currently the app assumes two classes <code>TeamAAgent</code> and <code>TeamBAgent</code>. 
 You can find the example/default implementations in <code>web/teams/TestTeam.js</code>
 
-Team B is the "smart" one. Currently Team A is like a headless chicken, just running around.
+Team B is an example on how to collect points and do basic environment sensing.
+Team A is an example on how to communicate. They assign roles to each other, but don't use that knowlage for now.
 
-Youre AI should be able to beat Team B quies easiely in a best of 5.
+Youre AI should be able to beat Team B quies easiely in a best of 5. Team A does not collect any points at all :).
+
 
 ## Feedback
 
