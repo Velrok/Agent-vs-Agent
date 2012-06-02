@@ -32,7 +32,7 @@
 				window.log = function(agent, msg){
 					var agentId = gm.getAgentId(agent);
 					if (agentId >= 0) {
-						console.log("agent["+agentId+"]: " + msg);	
+						console.log("agent["+agentId+"] " + gm.moveCount + ": " + msg);	
 					};	
 				}
 
