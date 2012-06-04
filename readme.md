@@ -28,13 +28,13 @@ Currently the app assumes two classes <code>TeamAAgent</code> and <code>TeamBAge
 You can find the example/default implementations in <code>web/teams/TestTeam.js</code>
 
 Team B is an example on how to collect points and do basic environment sensing.
-Team A is an example on how to communicate. They assign roles to each other, but don't use that knowlage for now.
+Team A is an example on how to communicate. They assign roles to each other, but don't use that knowledge for now.
 
-Youre AI should be able to beat Team B quies easiely in a best of 5. Team A does not collect any points at all :).
+Your AI should be able to beat Team B quiet easily in a best of 5. Team A does not collect any points at all :).
 
 
 ## Feedback
 
 Please file bug reports in the [issues section](https://github.com/Velrok/Agent-vs-Agent/issues?state=open).
 
-I'm happy to head from you. Just drop me an [email](mailto:waldemar.schwan+agentvsagent@gmail.com).
+I'm happy to hear from you. Just drop me an [email](mailto:waldemar.schwan+agentvsagent@gmail.com).
