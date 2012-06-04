@@ -91,9 +91,9 @@ function GamingField(){
 				var y = coordinates[1] + iy;
 				var x = coordinates[0] + ix;
 
-				// ok now we fetach the stuff for that field
+				// ok now we fetch the stuff for that field
 				try {
-					// it me be the case that we try to make a step outside of the field
+					// it might be the case, that we try to make a step outside of the field
 					// especially when we are at the edge.
 					// this will throw an exception, that we just ignore
 					var stuff = this.getAll([x,y]);
@@ -102,15 +102,12 @@ function GamingField(){
 						var key = this.relativeCoordinatesToCardinalDirection([ix,iy]);
 
 						// but we will only add the descriptions, so 
-						// noone can mess with the other objects
-						var descriptions = [];
-						stuff.foreach(function(i,entitie){
+						// no one can mess with the other objects
+						surrounding[key] = stuff.map(function(entity){
 							// calling toString() on the type ensures, that no one puts inteligent objects in there.
 							// wen may need to check the string for a specific format too.
-							descriptions.push(entitie.getType().toString());
+							return entity.getType().toString();
 						});
-
-						surrounding[key] = descriptions;
 					};
 				} catch (e) {
 					if(e !== "OutsideTheField"){
