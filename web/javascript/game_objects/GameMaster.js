@@ -272,6 +272,8 @@ function GameMaster() {
  				this.executeCollect(agent);
  				break;
 			case "skip":
+			case "pass":
+			case "":
  				break;
  			default:
  				console.log("GameMaster does not understand choice: " + choice + " of agent: " + agent);
@@ -299,6 +301,7 @@ function GameMaster() {
 
 	 // returns false if the game is over
 	 this.nextMove = function(){
+		this.moveCount ++;
 	 	//console.log("this.teamAScore: " + this.teamAScore);
 	 	//console.log("this.teamBScore: " + this.teamBScore);
 	 	//console.log("this.pointsDistributed: " + this.pointsDistributed);

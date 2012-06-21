@@ -1,5 +1,5 @@
 var getRandomDirection = function(){
-	switch(Math.round(Math.random() * 7)){
+	switch(Math.floor(Math.random() * 8)){
 		case 0: return "N";
 		case 1: return "NE";
 		case 2: return "E";
