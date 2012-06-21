@@ -8,8 +8,6 @@
 		
 		<!-- include the Agent vs Agent stuff -->
 		<script type="text/javascript" 
-			src="teams/TestTeam.js"></script>
-		<script type="text/javascript" 
 			src="javascript/game_objects/GameMaster.js"></script>
 		<script type="text/javascript" 
 			src="javascript/game_objects/GamingField.js"></script>
@@ -26,6 +24,13 @@
 
 		<!-- This js code is specific for this html site. -->
 		<script type="text/javascript">
+
+			var teams = {};
+
+			var registerTeam = function(id, constructor){
+				console.log("new team: " + id);
+				teams[id] = constructor;
+			}
 			
 			$(function() {
 				var gm;
@@ -88,9 +93,21 @@
 				visualizeGamingFieldInto(gm.gamingField, gaming_field);
 				$("#start_game_loop").click(startGameLoop);
 				$("#stop_game_loop").click(stopGameLoop);
-				console.log('goo');
+
+				visualizeTeamSelectionListInto(teams, $('#team_selection'));
+
+				console.log('ready lets rock!');
 			});
+
 		</script>
+
+		<!-- including teams -->
+		<script type="text/javascript" 
+			src="teams/TestTeam.js"></script>
+
+		<!-- <script type="text/javascript" 
+			src="teams/waldemar.js"></script> -->
+
 	</head>
 
 	<body>
@@ -100,6 +117,17 @@
 			<div id="page_header">
 				<span id="teamAScore" class="score">0</span>
 				<span id="teamBScore" class="score">0</span>
+			</div>
+
+			<div id="team_selection">
+				<select id="red_team_selector" class="team_selector">
+					<option>Placeholder A</option>
+					<option>Placeholder B</option>
+				</select>
+				<select id="blue_team_selector" class="team_selector">
+					<option>Placeholder B</option>
+					<option>Placeholder A</option>
+				</select>
 			</div>
 
 			<div id="gaming_field">

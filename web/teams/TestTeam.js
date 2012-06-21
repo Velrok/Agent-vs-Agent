@@ -104,3 +104,7 @@ function TeamBAgent() {
 		this.gotPoint = false;
 	}
 }
+
+registerTeam("placeholder", TeamAAgent);
+registerTeam("headless chicken", TeamBAgent);
+

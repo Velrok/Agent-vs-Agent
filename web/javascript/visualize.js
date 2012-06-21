@@ -50,3 +50,48 @@ var visualizeGamingFieldEntity = function(entity){
 
 	return html;
 }
+
+var visualizeTeamSelectionListInto = function(idList, domObj){
+
+	// read team selection
+	var html = visualizeObjAsSelection(idList, 
+		{id: "red_team_selector",
+		 class: "team_selector"});
+
+
+	// blue team selection
+	html += visualizeObjAsSelection(idList, 
+		{id: "blue_team_selector",
+		 class: "team_selector"});
+
+	$(domObj).html(html);
+}
+
+var visualizeObjAsSelection = function(obj, htmlAttributes){
+	var html = "<select";
+	for(var attr in htmlAttributes){
+		if(htmlAttributes.hasOwnProperty(attr)){
+			html += " " + attr + "=\"";
+			html += htmlAttributes[attr];
+			html += "\"";
+		}
+	}
+	html += ">";
+
+	for(var attr in obj){
+		if(obj.hasOwnProperty(attr)){
+			console.log(attr);
+			html += "<option>";
+			html += attr;
+			html += "</option>";
+		}
+	}
+	html += "</select>";
+	return html;
+}
+
+
+
+
+
+

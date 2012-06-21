@@ -35,6 +35,19 @@
 	box-shadow: 0px 10px 10px -10px #555;
 }
 
+
+.team_selector{
+	width: 49%;
+}
+
+#red_team_selector{
+	float: left;
+}
+
+#blue_team_selector{
+	float: right;
+}
+
 #gaming_field{
 	clear: both;
 }
