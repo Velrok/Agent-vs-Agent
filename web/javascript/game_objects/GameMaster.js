@@ -40,11 +40,11 @@ GameMaster.prototype.resetAgents = function (agentsPerTeam){
 	this.agentsWithPoints = [];
 
 	for (var i = 0; i < agentsPerTeam; i++) {
-		var agentA = new this.teamAAgentClass();
+		var agentA = new this.teamAAgentClass(agentsPerTeam,this.teamAHomeBase, i);
 		this.decorateAgent(agentA, "team_a");
 		this.teamAAgents.push(agentA);
 
-		var agentB = new this.teamBAgentClass();
+		var agentB = new this.teamBAgentClass(agentsPerTeam,this.teamBHomeBase, i);
 		this.decorateAgent(agentB, "team_b");
 		this.teamBAgents.push(agentB);
 	}
