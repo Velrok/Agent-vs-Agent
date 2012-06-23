@@ -42,22 +42,19 @@
 				}
 
 				gm = new GameMaster();
-				gm.newGame();
-
+				
 				var nextMove = function(){
-					//console.log("nextMove");
 					var hasNextMove = gm.nextMove();
-					//console.log("hasNextMove: " + hasNextMove);
 					if(hasNextMove){
 						startTimer(true);
 					} else {
 						alert("Game Over");
 					}
 
-					visualizeGamingFieldInto(gm.gamingField, gaming_field);
-
 					$('#teamAScore').html(gm.teamAScore);
 					$('#teamBScore').html(gm.teamBScore);
+
+					visualizeGamingFieldInto(gm.gamingField, gaming_field);
 				}
 
 
@@ -79,6 +76,12 @@
 					};
 				}
 
+				var newGame = function(){
+					gm.newGame();
+					visualizeGamingFieldInto(gm.gamingField, gaming_field);
+					$('#start_game_loop').attr('disabled', false);
+				}
+
 				var startGameLoop = function () {
 					$('#start_game_loop').attr('disabled', true);
 					$('#stop_game_loop').removeAttr('disabled');
@@ -90,11 +93,25 @@
 					$('#stop_game_loop').attr('disabled', true);
 					stopTimer();
 				}
-				visualizeGamingFieldInto(gm.gamingField, gaming_field);
+				
+				$("#new_game").click(newGame);
 				$("#start_game_loop").click(startGameLoop);
 				$("#stop_game_loop").click(stopGameLoop);
 
 				visualizeTeamSelectionListInto(teams, $('#team_selection'));
+
+				var getTeamClassFromSelection = function(selectorChangeEvent){
+					var id = selectorChangeEvent.currentTarget.value;
+					return teams[id];
+				}
+
+				$('#red_team_selector').change(function(selector){ 
+					gm.setTeamAAgentClass(getTeamClassFromSelection(selector));
+				});
+
+				$('#blue_team_selector').change(function(selector){ 
+					gm.setTeamBAgentClass(getTeamClassFromSelection(selector));
+				});
 
 				console.log('ready lets rock!');
 			});
@@ -144,7 +161,8 @@
 			</div>
 
 			<div id="controlls">
-				<input id="start_game_loop" type="button" value="start game loop">
+				<input id="new_game" type="button" value="start new game">
+				<input id="start_game_loop" type="button" value="start game loop" disabled="true">
 				<input id="stop_game_loop" type="button" value="stop game loop" disabled="true">
 				<!-- <input type="button" value="next move"> -->
 			</div>

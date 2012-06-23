@@ -10,6 +10,9 @@ function GameMaster() {
 	 this.teamAAgents = [];
 	 this.teamBAgents = [];
 
+	 this.teamAAgentClass = null;
+	 this.teamBAgentClass = null;
+
 	 this.actingOrder = [];
 
 	 this.moveCount = 0;
@@ -22,17 +25,28 @@ function GameMaster() {
 
 	 this.nextAgentInLine = 0;
 }
+
+GameMaster.prototype.setTeamAAgentClass = function(agentClass){
+	console.log("Team A Agent set.");
+	this.teamAAgentClass = agentClass;
+}
+
+GameMaster.prototype.setTeamBAgentClass = function(agentClass){
+	console.log("Team B Agent set.");
+	this.teamBAgentClass = agentClass;
+}
+
 GameMaster.prototype.resetAgents = function (agentsPerTeam){
 	this.teamAAgents = [];
 	this.teamBAgents = [];
 	this.agentsWithPoints = [];
 
 	for (var i = 0; i < agentsPerTeam; i++) {
-		var agentA = new TeamAAgent();
+		var agentA = new this.teamAAgentClass();
 		this.decorateAgent(agentA, "team_a");
 		this.teamAAgents.push(agentA);
 
-		var agentB = new TeamBAgent();
+		var agentB = new this.teamBAgentClass();
 		this.decorateAgent(agentB, "team_b");
 		this.teamBAgents.push(agentB);
 	}
