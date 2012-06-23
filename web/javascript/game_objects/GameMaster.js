@@ -100,8 +100,8 @@ GameMaster.prototype.distributePoints = function (numberOfPoints) {
 		var coords2d = this.baseIndexTo2dCoords(baseIndex);
 
 		// dont't place points on the home bases
-		if (!this.arrayEqual(coords2d, [0,0])
-			&& !this.arrayEqual(coords2d, [7,7])) 
+		if (!arrayEqual(coords2d, [0,0])
+			&& !arrayEqual(coords2d, [7,7])) 
 		{
 			this.gamingField.place(new Point(), coords2d);
 			this.pointsDistributed++;
@@ -219,26 +219,13 @@ GameMaster.prototype.agentOnHomeBase = function (agent){
 
 	switch (agent.getTeam()){
 		case "team_a":
-			return this.arrayEqual(agentPosition, this.teamAHomeBase);
+			return arrayEqual(agentPosition, this.teamAHomeBase);
 		case "team_b":
-			return this.arrayEqual(agentPosition, this.teamBHomeBase);
+			return arrayEqual(agentPosition, this.teamBHomeBase);
 		default:
 			console.log("Invalid agent type: " + agent.getType());
 			return;
 	}
-}
-
-GameMaster.prototype.arrayEqual = function (array1, array2){
-	if (array1.length != array2.length){
-		return false;
-	}
-
-	for (var i = 0; i < array1.length; i++){
-		if (array1[i] != array2[i])
-			return false;
-	}
-
-	return true;
 }
 
 GameMaster.prototype.executeComunicate = function (agent){

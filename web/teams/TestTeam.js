@@ -12,7 +12,9 @@ var getRandomDirection = function(){
 	};
 };
 
-function TeamAAgent() {
+function ScoutingTeam(numberOfAgents, homebase, myId) {
+	this.homebase = homebase;
+
 	this.role = null;
 
 	this.chooseAction = function(){
@@ -55,7 +57,10 @@ function TeamAAgent() {
 }
 
 
-function TeamBAgent() {
+function HeadlessChicken(numberOfAgents, homebase, myId) {
+
+	this.homebase = homebase;
+
 	this.nextAction = "move";
 	this.gotPoint = false;
 
@@ -69,7 +74,12 @@ function TeamBAgent() {
 	this.getMoveDirection = function() {
 		var direction;
 		if(this.gotPoint){
-			direction = "NE";
+			if(arrayEqual(this.homebase, [0,0])){
+				direction = "SW";
+			} else {
+				direction = "NE";
+			}
+			
 		} else {
 			direction = getRandomDirection();
 		}
@@ -105,6 +115,6 @@ function TeamBAgent() {
 	}
 }
 
-registerTeam("lazy agents", TeamAAgent);
-registerTeam("headless chicken", TeamBAgent);
+registerTeam("ScoutingTeam", ScoutingTeam);
+registerTeam("HeadlessChicken", HeadlessChicken);
 
