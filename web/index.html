@@ -97,6 +97,12 @@
 				$("#start_game_loop").click(startGameLoop);
 				$("#stop_game_loop").click(stopGameLoop);
 
+				$('#game_speed_slider').change(function(event){
+					var value = event.currentTarget.value;
+					timeout = value;
+					$('#time_between_moves').html(value);
+				});
+
 				visualizeTeamSelectionListInto(teams, $('#team_selection'));
 
 				var getTeamClassFromSelection = function(selectorChangeEvent){
@@ -168,6 +174,8 @@
 			</div>
 
 			<div id="controlls">
+				<label>Time between moves </label><label id="time_between_moves">100</label>
+				<input id="game_speed_slider" type="range" min="10" max="500" value="100" />
 				<input id="new_game" type="button" value="start new game">
 				<input id="start_game_loop" type="button" value="start game loop" disabled="true">
 				<input id="stop_game_loop" type="button" value="stop game loop" disabled="true">
