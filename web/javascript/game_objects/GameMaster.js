@@ -27,12 +27,10 @@ function GameMaster() {
 }
 
 GameMaster.prototype.setTeamAAgentClass = function(agentClass){
-	console.log("Team A Agent set.");
 	this.teamAAgentClass = agentClass;
 }
 
 GameMaster.prototype.setTeamBAgentClass = function(agentClass){
-	console.log("Team B Agent set.");
 	this.teamBAgentClass = agentClass;
 }
 

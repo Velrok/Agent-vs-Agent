@@ -105,6 +105,6 @@ function TeamBAgent() {
 	}
 }
 
-registerTeam("placeholder", TeamAAgent);
+registerTeam("lazy agents", TeamAAgent);
 registerTeam("headless chicken", TeamBAgent);
 

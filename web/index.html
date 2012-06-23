@@ -28,7 +28,6 @@
 			var teams = {};
 
 			var registerTeam = function(id, constructor){
-				console.log("new team: " + id);
 				teams[id] = constructor;
 			}
 			
@@ -105,10 +104,18 @@
 					return teams[id];
 				}
 
+				$('#red_team_selector').ready(function(element){
+					var agent = teams[$('#red_team_selector')[0].value];
+					gm.setTeamAAgentClass(agent);
+				});
 				$('#red_team_selector').change(function(selector){ 
 					gm.setTeamAAgentClass(getTeamClassFromSelection(selector));
 				});
 
+				$('#blue_team_selector').ready(function(selector){ 
+					var agent = teams[$('#blue_team_selector')[0].value];
+					gm.setTeamBAgentClass(agent);
+				});
 				$('#blue_team_selector').change(function(selector){ 
 					gm.setTeamBAgentClass(getTeamClassFromSelection(selector));
 				});
