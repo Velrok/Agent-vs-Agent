@@ -92,13 +92,20 @@ GameMaster.prototype.baseIndexTo2dCoords = function (baseIndex) {
 }
 
 GameMaster.prototype.distributePoints = function (numberOfPoints) {
-	this.pointsDistributed = numberOfPoints;
+	this.pointsDistributed = 0;
 	var numberOfBases = 8*8;
-	for (var i = 0; i < numberOfPoints; i++) {
+
+	while(this.pointsDistributed < numberOfPoints){
 		var baseIndex = Math.floor(Math.random() * numberOfBases);
-		// baseIndex to 2d coords
 		var coords2d = this.baseIndexTo2dCoords(baseIndex);
-		this.gamingField.place(new Point(), coords2d);
+
+		// dont't place points on the home bases
+		if (!this.arrayEqual(coords2d, [0,0])
+			&& !this.arrayEqual(coords2d, [7,7])) 
+		{
+			this.gamingField.place(new Point(), coords2d);
+			this.pointsDistributed++;
+		};
 	}
 }
 
