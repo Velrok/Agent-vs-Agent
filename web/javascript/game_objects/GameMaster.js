@@ -330,7 +330,7 @@ GameMaster.prototype.nextMove = function (){
 
 GameMaster.prototype.newGame = function (){
 	this.resetGamingField();
-	this.resetAgents(2);
+	this.resetAgents(3);
 	this.placeAgents();
 	this.distributePoints(10);
 	this.determinActingOrder();
