@@ -9,7 +9,7 @@ var visualizeEntityTypeAgent = function (agent) {
 
   // class attr
   html += ' class= "';
-  html += classes.reduce(function(a,b){return a + " " + b});
+  html += classes.join(" ");
   html += '">';
 
   // html content
