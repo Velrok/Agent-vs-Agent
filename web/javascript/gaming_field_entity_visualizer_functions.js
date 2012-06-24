@@ -13,7 +13,7 @@ var visualizeEntityTypeAgent = function (agent) {
   html += '">';
 
   // html content
-  if(agent['getName']){
+  if(agent.getName){
     html += agent.getName();
   }
   
