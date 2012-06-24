@@ -340,7 +340,7 @@ GameMaster.prototype.newGame = function (){
 function AgentDecorator(agent) {
 
 	agent.getType = function (){
-		return "agent";
+		return "Agent";
 	}
 
 }

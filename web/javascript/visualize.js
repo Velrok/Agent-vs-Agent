@@ -33,22 +33,8 @@ var visualizeGamingFieldInto = function(field, domObj) {
 }
 
 var visualizeGamingFieldEntity = function(entity){
-	html = "<div class=\"";
-
-	html += entity.getType();
-
-	if(entity.getType() == "agent"){
-		
-		html += " " +entity.getTeam();
-
-		if(entity.hasPoint()){
-			html += "_got_point ";
-		}
-	}
-
-	html += "\"></div>";	
-
-	return html;
+	var visualisationFunction = "visualizeEntityType"+entity.getType();
+	return eval(visualisationFunction+"(entity)");
 }
 
 var visualizeTeamSelectionListInto = function(idList, domObj){

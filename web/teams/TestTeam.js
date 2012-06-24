@@ -32,6 +32,10 @@ function ScoutingTeam(numberOfAgents, homebase, myId) {
 		}
 	}
 
+	this.getName = function(){
+		return "S";
+	}
+
 	this.receiveMessage = function(msg){
 		if(this.role == null){
 			this.role = msg;
