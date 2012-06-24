@@ -3,7 +3,13 @@ var visualizeEntityTypePoint = function (argument) {
 }
 
 var visualizeEntityTypeAgent = function (agent) {
-  var classes = ['agent', agent.getTeam()];
+  var classes = ['agent'];
+
+  if(agent.hasPoint()){
+    classes.push(agent.getTeam() + "_got_point");
+  } else {
+    classes.push(agent.getTeam());
+  }
 
   var html = '<div';
 
