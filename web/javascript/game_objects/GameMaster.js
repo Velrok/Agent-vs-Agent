@@ -262,6 +262,7 @@ GameMaster.prototype.executeCollect = function (agent){
 			agent.pointCollected();
 			PointDecorator(agent, true);
 			this.agentsWithPoints.push(agent);
+			return;
 		}
 	}
 }
