@@ -28,32 +28,7 @@ MemoryMap.prototype.isEmpty = function() {
 };
 
 
-function relativeToCoordinate(pos, direction) {
-	var x = 0;
-	var y = 1;
-	var result = [pos[x], pos[y]];
-	direction.split("").forEach(function (dir) {
-		if (dir == "N") result[y]++;
-		if (dir == "S") result[y]--;
-		if (dir == "E") result[x]++;
-		if (dir == "W") result[x]--;
-	});
-	return result;
-}
-function coordinateToRelative(c, c2) {
-	var dir = "";
-	var x = 0, y = 1;
-	if (c[y] < c2[y]) dir += "N";
-	else if (c[y] > c2[y]) dir += "S";
-	
-	if(c[x] < c2[x]) dir += "E";
-	else if(c[x] > c2[x]) dir += "W";
-	
-	if (dir == "") {
-		return "C";
-	} 
-	return dir;	
-}
+
 function findRandomDirection(pos) {
 	var newPos, dir;
 	do {
