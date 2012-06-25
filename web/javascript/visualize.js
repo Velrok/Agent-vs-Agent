@@ -34,7 +34,7 @@ var visualizeGamingFieldInto = function(field, domObj) {
 
 var visualizeGamingFieldEntity = function(entity){
 	var visualisationFunction = "visualizeEntityType"+entity.getType();
-	return eval(visualisationFunction+"(entity)");
+	return this[visualisationFunction](entity);
 }
 
 var visualizeTeamSelectionListInto = function(idList, domObj){
