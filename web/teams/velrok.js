@@ -15,3 +15,5 @@ function forwardCallToState(agent, function_name) {
 	};
 	obj.prototype[function_name].name = function_name;
 }
+
+registerTeam('Velrok', VelrokAgent);
