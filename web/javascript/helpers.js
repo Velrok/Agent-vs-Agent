@@ -19,6 +19,11 @@ var arrayEqual = function (array1, array2){
 }
 
 /**
+A list of all possible surroundings keys.
+**/
+var surroundingKeys = ['N', 'NW', 'W', 'SW', 'S', 'SE', 'E', 'NE', 'C'];
+
+/**
 Given a position and a direction ( N, NW, W, …) it 
 returns the new position.
 */
@@ -52,6 +57,20 @@ function coordinateToRelative(c, c2) {
     return "C";
   } 
   return dir; 
+}
+
+/**
+
+@param positionA - an array: [x,y]
+@param positionB - an array: [x,y]
+
+@returns - The eucledian distance between the two positions
+**/
+function distance(pos1, pos2){
+  var x = pos1[0] - pos2[0];
+  var y = pos1[1] - pos2[1];
+
+  return Math.abs(Math.sqrt(x*x + y*y));
 }
 
 /**

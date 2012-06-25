@@ -279,6 +279,7 @@ GameMaster.prototype.processChoice = function (agent, choice) {
 			this.executeCollect(agent);
 			break;
 		case "skip":
+		case "pass":
 			break;
 		default:
 			console.log("GameMaster does not understand choice: " + choice + " of agent: " + agent);

@@ -118,6 +118,14 @@ Agent.prototype.getName = function() {
   return "";
 };
 
-
+Agent.prototype.say = function(text) {
+  var msg;
+  if (this.id) {
+    msg = ""+this.id + ": ";
+  };
+  
+  msg += text;
+  console.log(msg);
+};
 
 
