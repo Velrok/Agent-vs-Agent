@@ -53,3 +53,20 @@ function coordinateToRelative(c, c2) {
   } 
   return dir; 
 }
+
+/**
+@return -   a random direction.
+*/
+var getRandomDirection = function(){
+  switch(Math.floor(Math.random() * 8)){
+    case 0: return "N";
+    case 1: return "NE";
+    case 2: return "E";
+    case 3: return "SE";
+    case 4: return "S";
+    case 5: return "SW";
+    case 6: return "W";
+    case 7: return "NW";
+    default: throw "error";
+  };
+};
