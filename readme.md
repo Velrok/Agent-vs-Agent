@@ -24,13 +24,10 @@ Use youre favorit browser to open <code>web/index.html</code>.
 
 ## How to write youre own AI
 
-Currently the app assumes two classes <code>TeamAAgent</code> and <code>TeamBAgent</code>. 
-You can find the example/default implementations in <code>web/teams/TestTeam.js</code>
-
-Team B is an example on how to collect points and do basic environment sensing.
-Team A is an example on how to communicate. They assign roles to each other, but don't use that knowledge for now.
-
-Your AI should be able to beat Team B quiet easily in a best of 5. Team A does not collect any points at all :).
+First of all you want to take a look at ```javascript/game_objects/AgentPrototype.js```.
+It documents all the callbacks. 
+For starters you probably want to take a look at ```teams/TestTeam.js```, specially the 'headless chicken' AI is a good example for a very basic working AI.
+When you are ready for more complex stuff you may find ```teams/Stephan.js``` and ```teams/velrok.js``` usefull examples. This already implement the AI using a state machine.
 
 
 ## Feedback
