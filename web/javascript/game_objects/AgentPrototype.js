@@ -14,9 +14,7 @@ This serves as a documentation and base implementation for new agents.
 @param  id - Number, unique in the team.
 */
 function Agent(numberOfAgents, homebase, id) {
-  this.numberOfAgents = numberOfAgents:
-  this.homebase = homebase;
-  this.id = id;
+  
 }
 
 /*
@@ -60,7 +58,7 @@ This gets called after the move.
 @param  newPos - array [x,y]
 */
 Agent.prototype.newPosition = function(newPos) {
-  this.position = newPos;
+  
 };
 
 /*
