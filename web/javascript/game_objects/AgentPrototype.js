@@ -118,6 +118,10 @@ Agent.prototype.getName = function() {
   return "";
 };
 
+/*
+Use this for "personalised" log messages.
+This may get transformed into speeking bubbles in the future :) .
+*/
 Agent.prototype.say = function(text) {
   var msg;
   if (this.id) {
