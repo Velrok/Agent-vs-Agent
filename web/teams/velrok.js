@@ -73,6 +73,65 @@ BaseState.prototype.leave = function(){
 }
 
 /**
+			Collecting
+**/
+function CollectingBaseState(){}
+CollectingBaseState.prototype.__proto__ = BaseState.prototype;
+
+CollectingBaseState.prototype.getName = function(){
+	return "C";
+}
+
+function CollectingPoints(){};
+CollectingPoints.prototype.__proto__ = CollectingBaseState.prototype;
+
+CollectingPoints.prototype.newSurrounding = function(surr){
+	if(surr.C && surr.C.contains('Point')){
+		this.updateState(new PickupPoint());
+	}
+}
+
+function PickupPoint(){}
+PickupPoint.prototype.__proto__ = CollectingBaseState.prototype;
+
+PickupPoint.prototype.chooseAction = function(){
+	return 'collect';
+}
+
+PickupPoint.prototype.pointCollected = function(){
+	this.say("Got a point.");
+	this.updateState(new ReturningToHomeBase());
+}
+
+PickupPoint.prototype.pointNotCollected = function(){
+	this.say('Something went wrong no point here :(.');
+	if(this.knownPointLocations.length > 0){
+		this.updateState(new CollectingPoints());
+	} else {
+		this.updateState(new Scouting());
+	}
+}
+
+PickupPoint.prototype.enter = function(){
+	this.say("I will pickup the point now.");
+}
+
+function ReturningToHomeBase(){}
+ReturningToHomeBase.prototype.__proto__ = CollectingBaseState.prototype;
+
+ReturningToHomeBase.prototype.chooseAction = function(){
+	return 'move';
+}
+
+ReturningToHomeBase.prototype.getMovedirection = function(){
+	return coordinateToRelative(this.myPosition, this.homebase);
+}
+
+ReturningToHomeBase.prototype.enter = function(){
+	this.say("Running back to homebase!");
+}
+
+/**
 			Scouting
 **/
 function ScoutBaseState(){}
@@ -82,17 +141,37 @@ ScoutBaseState.prototype.getName = function(){
 	return "S";
 }
 
+function Scouting(){}
+Scouting.prototype.__proto__ = ScoutBaseState.prototype;
 
-/**
-			Runner
-**/
-function RunnerBaseState(){}
-RunnerBaseState.prototype.__proto__ = BaseState.prototype;
-
-RunnerBaseState.prototype.getName = function(){
-	return "R";
+Scouting.prototype.newSurrounding(surr){
+	var foundPoints = [];
+	for(k in surroundingKeys){
+		if(surr.k){
+			for(e in surr.k){
+				if(e == "Point"){
+					this.knownPointLocations.add(
+						relativeToCoordinate(this.myPosition, k));
+				}
+			}
+		}
+	}
+	if(this.knownPointLocations.length > 0){
+		this.updateState(new CollectingPoints());
+	}
 }
 
+Scouting.prototype.chooseAction = function(){
+	return "move";
+}
+
+Scouting.prototype.getMovedirection = function(){
+	return getRandomDirection();
+}
+
+Scouting.prototype.enter = function(){
+	this.say("Scouting for points.");
+}
 
 /**
 			Agent
@@ -103,16 +182,11 @@ function VelrokAgent(numberOfAgents, homebase, id) {
 	this.homebase = homebase;
 	this.id = id;
 
-	console.log(id);
-	if(id == 0){
-		// we have one runner
-		this.state = new RunnerBaseState();
-		console.log("Im a Runner");
-	} else {
-		// and all the others are souts
-		this.state = new ScoutBaseState();
-		console.log("Im a Scout");
-	}
+	this.myPosition = homebase;
+
+	this.knownPointLocations = new SortedPositionList();
+
+	this.state = new Scouting();
 }
 
 VelrokAgent.prototype.updateState = function(newState){
@@ -135,7 +209,6 @@ function forwardCallToState(agent, function_name) {
 forwardCallToState(VelrokAgent, 'newSurrounding');
 forwardCallToState(VelrokAgent, 'chooseAction');
 forwardCallToState(VelrokAgent, 'getMovedirection');
-forwardCallToState(VelrokAgent, 'newPosition');
 forwardCallToState(VelrokAgent, 'pointCollected');
 forwardCallToState(VelrokAgent, 'pointNotCollected');
 forwardCallToState(VelrokAgent, 'pointScored');
