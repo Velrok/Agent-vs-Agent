@@ -124,6 +124,11 @@ This may get transformed into speeking bubbles in the future :) .
 */
 Agent.prototype.say = function(text) {
   var msg;
+
+  if (this.getTeam){
+    msg += this.getTeam() + "#"
+  }
+
   if (this.id) {
     msg = ""+this.id + ": ";
   };

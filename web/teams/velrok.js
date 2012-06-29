@@ -144,9 +144,9 @@ ScoutBaseState.prototype.getName = function(){
 function Scouting(){}
 Scouting.prototype.__proto__ = ScoutBaseState.prototype;
 
-Scouting.prototype.newSurrounding(surr){
+Scouting.prototype.newSurrounding = function(surr){
 	var foundPoints = [];
-	for(k in surroundingKeys){
+	for(var k in surroundingKeys){
 		if(surr.k){
 			for(e in surr.k){
 				if(e == "Point"){
@@ -187,12 +187,19 @@ function VelrokAgent(numberOfAgents, homebase, id) {
 	this.knownPointLocations = new SortedPositionList();
 
 	this.state = new Scouting();
+
+	this.say("Hello");
 }
+VelrokAgent.prototype.__proto__ = Agent.prototype;
 
 VelrokAgent.prototype.updateState = function(newState){
 	this.state.leave();
 	this.state = newState;
 	this.state.enter();
+}
+
+VelrokAgent.prototype.newPosition = function(newPos){
+	this.myPosition = newPos;
 }
 
 function forwardCallToState(agent, function_name) {
@@ -208,7 +215,7 @@ function forwardCallToState(agent, function_name) {
 
 forwardCallToState(VelrokAgent, 'newSurrounding');
 forwardCallToState(VelrokAgent, 'chooseAction');
-forwardCallToState(VelrokAgent, 'getMovedirection');
+forwardCallToState(VelrokAgent, 'getMoveDirection');
 forwardCallToState(VelrokAgent, 'pointCollected');
 forwardCallToState(VelrokAgent, 'pointNotCollected');
 forwardCallToState(VelrokAgent, 'pointScored');

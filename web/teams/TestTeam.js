@@ -106,6 +106,6 @@ function HeadlessChicken(numberOfAgents, homebase, myId) {
 	}
 }
 
-registerTeam("ScoutingTeam", ScoutingTeam);
-registerTeam("HeadlessChicken", HeadlessChicken);
+//registerTeam("ScoutingTeam", ScoutingTeam);
+//registerTeam("HeadlessChicken", HeadlessChicken);
 

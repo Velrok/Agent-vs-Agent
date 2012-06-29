@@ -197,7 +197,7 @@ decorateAgentStateCaller(ZeissSAgent, "pointScored");
 
 
 // Which Team to play?
-registerTeam("ZeissSAgent", ZeissSAgent);
+//registerTeam("ZeissSAgent", ZeissSAgent);
 // TeamBAgent = ZeissSAgent;
 
 
