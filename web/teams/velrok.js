@@ -144,7 +144,7 @@ ScoutBaseState.prototype.getName = function(){
 function Scouting(){}
 Scouting.prototype.__proto__ = ScoutBaseState.prototype;
 
-Scouting.prototype.newSurrounding(surr){
+Scouting.prototype.newSurrounding = function(surr){
 	var foundPoints = [];
 	for(k in surroundingKeys){
 		if(surr.k){
