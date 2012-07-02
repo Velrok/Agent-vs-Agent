@@ -40,6 +40,7 @@ GameMaster.prototype.resetAgents = function (agentsPerTeam){
 	this.agentsWithPoints = [];
 
 	for (var i = 0; i < agentsPerTeam; i++) {
+
 		var agentA = new this.teamAAgentClass(agentsPerTeam,this.teamAHomeBase, i);
 		this.decorateAgent(agentA, "team_a");
 		this.teamAAgents.push(agentA);
@@ -286,6 +287,10 @@ GameMaster.prototype.processChoice = function (agent, choice) {
 	}
 }
 
+GameMaster.prototype.handleAgentException = function(agent, execption){
+	console.log("caught exception (" + exception + ") from agent " + agent.toString());
+}
+
 GameMaster.prototype.explainSurroundingsTo = function (activeAgent){
 	var agentPosition = this.gamingField.getCoordinatesOf(activeAgent);
 	var surrounding = this.gamingField.getSurroundingFor(agentPosition);
@@ -300,7 +305,7 @@ GameMaster.prototype.explainSurroundingsTo = function (activeAgent){
 	try {
 		activeAgent.newSurrounding(surrounding);
 	} catch ( e ) {
-		console.log("caught exception (" + e + ") from agent " + activeAgent.toString());
+		this.handleAgentException(activeAgent, e);
 	}
 }
 
