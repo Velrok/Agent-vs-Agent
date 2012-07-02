@@ -135,7 +135,14 @@ GameMaster.prototype.stepWest = function (coords){
 }
 
 GameMaster.prototype.executeMove = function (agent){
-	var direction = agent.getMoveDirection().toUpperCase();
+	var direction;
+	try {
+		direction = agent.getMoveDirection().toUpperCase();
+	} catch (e) {
+		this.handleAgentException(agent, e);
+		return;
+	}
+	
 
 	var oldPosition = this.gamingField.remove(agent);
 	if (oldPosition === false){
@@ -186,7 +193,12 @@ GameMaster.prototype.executeMove = function (agent){
 		&& this.agentOnHomeBase(agent)){
 		
 			this.scorePoint(agent);
-			agent.pointScored();
+			try{
+				agent.pointScored();	
+			} catch (e) {
+				this.handleAgentException(agent, e);
+			}
+			
 			this.removePointFromAgent(agent);
 	}
 }
@@ -230,16 +242,31 @@ GameMaster.prototype.agentOnHomeBase = function (agent){
 }
 
 GameMaster.prototype.executeComunicate = function (agent){
-	var msg = String(agent.getMessage());
+	try {
+		var msg = String(agent.getMessage());
+	} catch (e) {
+		this.handleAgentException(agent, e);
+		return;
+	}
+	
+	
 	switch (agent.getTeam()){
 		case "team_a":
 			this.teamAAgents.foreach(function (i, v){
-				v.receiveMessage(msg);
+				try {
+					v.receiveMessage(msg);
+				} catch (e) {
+					this.handleAgentException(v, e);
+				}
 			});
 			break;
 		case "team_b":
 			this.teamBAgents.foreach(function (i, v){
-				v.receiveMessage(msg);
+				try {
+					v.receiveMessage(msg);
+				} catch (e) {
+					this.handleAgentException(v, e);
+				}
 			});
 			break;
 		default:
@@ -250,7 +277,14 @@ GameMaster.prototype.executeComunicate = function (agent){
 GameMaster.prototype.executeCollect = function (agent){
 	if (this.agentsWithPoints.indexOf(agent) >= 0){
 		// this agent allready has a point collected
-		agent.pointNotCollected();
+
+		try {
+			agent.pointNotCollected();
+		} catch (e) {
+			this.handleAgentException(agent, e);
+		}
+		
+		
 		return;
 	}
 
@@ -260,7 +294,12 @@ GameMaster.prototype.executeCollect = function (agent){
 		var entity = enities[i];
 		if (entity.getType() == "Point"){
 			this.gamingField.remove(entity);
-			agent.pointCollected();
+			try {
+				agent.pointCollected();
+			} catch (e) {
+				this.handleAgentException(agent, e);
+			}
+			
 			PointDecorator(agent, true);
 			this.agentsWithPoints.push(agent);
 			return;
@@ -287,8 +326,8 @@ GameMaster.prototype.processChoice = function (agent, choice) {
 	}
 }
 
-GameMaster.prototype.handleAgentException = function(agent, execption){
-	console.log("caught exception (" + exception + ") from agent " + agent.toString());
+GameMaster.prototype.handleAgentException = function(agent, exeption){
+	console.log("caught exception (" + exeption + ") from agent " + agent.toString());
 }
 
 GameMaster.prototype.explainSurroundingsTo = function (activeAgent){
@@ -326,8 +365,14 @@ GameMaster.prototype.nextMove = function (){
 		//console.log("GameMaster.nextMove() : next agent in line: " + this.nextAgentInLine);
 		var activeAgent = this.actingOrder[this.nextAgentInLine];
 		this.explainSurroundingsTo(activeAgent);
-		var choice = activeAgent.chooseAction();
-		this.processChoice(activeAgent, choice);
+		try {
+			var choice = activeAgent.chooseAction();
+			this.processChoice(activeAgent, choice);
+		} catch (e){
+			this.handleAgentException(activeAgent, e);
+		}
+
+
 		this.nextAgentInLine++;
 		this.nextAgentInLine %= this.actingOrder.length;
 		return true;

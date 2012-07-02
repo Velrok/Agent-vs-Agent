@@ -118,11 +118,11 @@ var throwException = function(){
 
 BadTeam.prototype.newSurrounding = throwException;
 BadTeam.prototype.chooseAction = throwException;
-// BadTeam.prototype.getMoveDirection = throwException;
-// BadTeam.prototype.pointCollected = throwException;
-// BadTeam.prototype.pointNotCollected = throwException;
-// BadTeam.prototype.pointScored = throwException;
-// BadTeam.prototype.getMessage = throwException;
+BadTeam.prototype.getMoveDirection = throwException;
+BadTeam.prototype.pointCollected = throwException;
+BadTeam.prototype.pointNotCollected = throwException;
+BadTeam.prototype.pointScored = throwException;
+BadTeam.prototype.getMessage = throwException;
 // BadTeam.prototype.receiveMessage = throwException;
 // BadTeam.prototype.getName = throwException;
 
