@@ -154,6 +154,9 @@ function ZeissSAgent() {
 	this.state = SeekerState;
 
 };
+
+ZeissSAgent.prototype.__proto__ = Agent.prototype;
+
 ZeissSAgent.prototype.updateState = function(newState) {
 	log(this, "Switching state from " + this.state.name + " to " + newState.name);
 	this.state = newState;

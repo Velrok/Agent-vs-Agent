@@ -115,7 +115,11 @@ This will be displayed ontop the agent.
 Its probably a good idea to keep this short about 3 characters.
 */
 Agent.prototype.getName = function() {
-  return "";
+  if(this.id !== undefined){
+    return this.id;
+  } else {
+    return "";
+  }
 };
 
 /*
@@ -132,4 +136,15 @@ Agent.prototype.say = function(text) {
   console.log(msg);
 };
 
+Agent.prototype.toString = function(){
+  var description = "";
+  if(this.getTeam ) {
+    description += this.getTeam();
+  }
 
+  if(this.id){
+    description +=  + "#" + this.id + " ";
+  }
+
+  return description;
+}

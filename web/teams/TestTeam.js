@@ -50,6 +50,7 @@ function ScoutingTeam(numberOfAgents, homebase, myId) {
 
 function HeadlessChicken(numberOfAgents, homebase, myId) {
 
+	this.id = myId;
 	this.homebase = homebase;
 
 	this.nextAction = "move";
@@ -105,6 +106,29 @@ function HeadlessChicken(numberOfAgents, homebase, myId) {
 		this.gotPoint = false;
 	}
 }
+
+HeadlessChicken.prototype.__proto__ = Agent.prototype;
+
+function BadTeam() {}
+BadTeam.prototype.__proto__ = Agent.prototype;
+
+var throwException = function(){
+	throw "this is for testing";
+}
+
+BadTeam.prototype.newSurrounding = throwException;
+// BadTeam.prototype.chooseAction = throwException;
+// BadTeam.prototype.getMoveDirection = throwException;
+// BadTeam.prototype.pointCollected = throwException;
+// BadTeam.prototype.pointNotCollected = throwException;
+// BadTeam.prototype.pointScored = throwException;
+// BadTeam.prototype.getMessage = throwException;
+// BadTeam.prototype.receiveMessage = throwException;
+// BadTeam.prototype.getName = throwException;
+
+registerTeam("ExceptionTeam", BadTeam);
+
+
 
 registerTeam("ScoutingTeam", ScoutingTeam);
 registerTeam("HeadlessChicken", HeadlessChicken);

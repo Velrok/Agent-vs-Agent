@@ -297,8 +297,11 @@ GameMaster.prototype.explainSurroundingsTo = function (activeAgent){
 		var idx = (surrounding.C).indexOf(activeAgent.getType());
 		(surrounding.C).splice(idx, 1);
 	}
-	
-	activeAgent.newSurrounding(surrounding);
+	try {
+		activeAgent.newSurrounding(surrounding);
+	} catch ( e ) {
+		console.log("caught exception (" + e + ") from agent " + activeAgent.toString());
+	}
 }
 
 GameMaster.prototype.getAgentId = function (agent){
