@@ -3,12 +3,10 @@
 		<!-- Helpers and the all time favorit jquery lib ;)  -->
 		<script type="text/javascript" 
 			src="libs/jquery.js"></script>
-		<script type="text/javascript" 
-			src="old_stuff/for_each.js"></script>
 	
 		<!-- Helper -->
 		<script type="text/javascript" 
-			src="old_stuff/helpers.js"></script>	
+			src="compiled/helpers.js"></script>	
 
 		<!-- include the Agent vs Agent stuff -->
 		<script type="text/javascript" 
@@ -31,113 +29,8 @@
 
 
 		<!-- This js code is specific for this html site. -->
-		<script type="text/javascript">
-
-			var teams = {};
-
-			var registerTeam = function(id, constructor){
-				teams[id] = constructor;
-			}
-			
-			$(function() {
-				var gm;
-				window.log = function(agent, msg){
-					var agentId = gm.getAgentId(agent);
-					if (agentId >= 0) {
-						console.log("agent["+agentId+"] " + gm.moveCount + ": " + msg);	
-					};	
-				}
-
-				gm = new GameMaster();
-				
-				var nextMove = function(){
-					var hasNextMove = gm.nextMove();
-					if(hasNextMove){
-						startTimer(true);
-					} else {
-						alert("Game Over");
-					}
-
-					$('#teamAScore').html(gm.teamAScore);
-					$('#teamBScore').html(gm.teamBScore);
-
-					visualizeGamingFieldInto(gm.gamingField, gaming_field);
-				}
-
-
-				var timer = null;
-				var timeout = 100;
-
-				var startTimer = function(forced){
-					// if not already running -> start
-					if (forced || timer == null) {
-						timer = setTimeout(nextMove, timeout);
-					};
-				}
-
-				var stopTimer = function(){
-					// stop if already running
-					if (timer != null) {
-						clearTimeout(timer);
-						timer = null;
-					};
-				}
-
-				var newGame = function(){
-					gm.newGame();
-					visualizeGamingFieldInto(gm.gamingField, gaming_field);
-					$('#start_game_loop').attr('disabled', false);
-				}
-
-				var startGameLoop = function () {
-					$('#start_game_loop').attr('disabled', true);
-					$('#stop_game_loop').removeAttr('disabled');
-					startTimer();
-				}
-
-				var stopGameLoop = function () {
-					$('#start_game_loop').removeAttr('disabled');
-					$('#stop_game_loop').attr('disabled', true);
-					stopTimer();
-				}
-				
-				$("#new_game").click(newGame);
-				$("#start_game_loop").click(startGameLoop);
-				$("#stop_game_loop").click(stopGameLoop);
-
-				$('#game_speed_slider').change(function(event){
-					var value = event.currentTarget.value;
-					timeout = value;
-					$('#time_between_moves').html(value);
-				});
-
-				visualizeTeamSelectionListInto(teams, $('#team_selection'));
-
-				var getTeamClassFromSelection = function(selectorChangeEvent){
-					var id = selectorChangeEvent.currentTarget.value;
-					return teams[id];
-				}
-
-				$('#red_team_selector').ready(function(element){
-					var agent = teams[$('#red_team_selector')[0].value];
-					gm.setTeamAAgentClass(agent);
-				});
-				$('#red_team_selector').change(function(selector){ 
-					gm.setTeamAAgentClass(getTeamClassFromSelection(selector));
-				});
-
-				$('#blue_team_selector').ready(function(selector){ 
-					var agent = teams[$('#blue_team_selector')[0].value];
-					gm.setTeamBAgentClass(agent);
-				});
-				$('#blue_team_selector').change(function(selector){ 
-					gm.setTeamBAgentClass(getTeamClassFromSelection(selector));
-				});
-
-				console.log('ready lets rock!');
-			});
-
-		</script>
+		<script type="text/javascript" 
+			src="compiled/app.js"></script>
 
 		<!-- including teams -->
 		<script type="text/javascript" 
