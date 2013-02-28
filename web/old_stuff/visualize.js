@@ -35,49 +35,43 @@ var visualizeGamingFieldInto = function(field, domObj) {
 var visualizeGamingFieldEntity = function(entity){
 	var visualisationFunction = "visualizeEntityType"+entity.getType();
 	return this[visualisationFunction](entity);
-}
+};
 
 var visualizeTeamSelectionListInto = function(idList, domObj){
 
 	// read team selection
-	var html = visualizeObjAsSelection(idList, 
-		{id: "red_team_selector",
-		 class: "team_selector"});
+	var html = visualizeObjAsSelection(idList,
+		{"id": "red_team_selector",
+			"class": "team_selector"});
 
 
 	// blue team selection
-	html += visualizeObjAsSelection(idList, 
+	html += visualizeObjAsSelection(idList,
 		{id: "blue_team_selector",
-		 class: "team_selector"});
+			"class": "team_selector"});
 
 	$(domObj).html(html);
-}
+};
 
 var visualizeObjAsSelection = function(obj, htmlAttributes){
 	var html = "<select";
-	for(var attr in htmlAttributes){
-		if(htmlAttributes.hasOwnProperty(attr)){
-			html += " " + attr + "=\"";
-			html += htmlAttributes[attr];
+	for(var attribute in htmlAttributes){
+		if(htmlAttributes.hasOwnProperty(attribute)){
+			html += " " + attribute + "=\"";
+			html += htmlAttributes[attribute];
 			html += "\"";
 		}
 	}
 	html += ">";
 
-	for(var attr in obj){
-		if(obj.hasOwnProperty(attr)){
-			console.log(attr);
+	for(var attribute in obj){
+		if(obj.hasOwnProperty(attribute)){
+			console.log(attribute);
 			html += "<option>";
-			html += attr;
+			html += attribute;
 			html += "</option>";
 		}
 	}
 	html += "</select>";
 	return html;
-}
-
-
-
-
-
-
+};

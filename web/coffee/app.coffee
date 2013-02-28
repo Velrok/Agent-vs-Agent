@@ -1,6 +1,6 @@
 teams = {}
 
-@registerTeam = (id, constructor) ->
+window.registerTeam = (id, constructor) ->
 	teams[id] = constructor
 
 gm = new GameMaster()
@@ -27,11 +27,10 @@ startGameLoop = ()->
 
 nextMove = () ->
 	hasNextMove = gm.nextMove()
-	if(hasNextMove){
-		startTimer(true);
-	} else {
-		alert("Game Over");
-	}
+	if(hasNextMove)
+		startTimer(true)
+	else
+		alert("Game Over")
 
 	$('#teamAScore').html(gm.teamAScore);
 	$('#teamBScore').html(gm.teamBScore);
