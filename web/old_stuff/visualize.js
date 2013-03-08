@@ -38,7 +38,6 @@ var visualizeGamingFieldEntity = function(entity){
 };
 
 var visualizeTeamSelectionListInto = function(idList, domObj){
-
 	// read team selection
 	var html = visualizeObjAsSelection(idList,
 		{"id": "red_team_selector",

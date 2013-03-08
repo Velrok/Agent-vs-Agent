@@ -68,6 +68,12 @@ getTeamClassFromSelection = (selectorChangeEvent) ->
 	id = selectorChangeEvent.currentTarget.value
 	return teams[id]
 
+init = ()->
+	visualizeTeamSelectionListInto(teams, $('#team_selection'))
+
+$(document).ready ()->
+	init()
+
 $('#red_team_selector').ready (element) ->
 	agent = teams[$('#red_team_selector')[0].value]
 	gm.setTeamAAgentClass(agent)
@@ -81,7 +87,5 @@ $('#blue_team_selector').ready (selector) ->
 
 $('#blue_team_selector').change (selector) ->
 	gm.setTeamBAgentClass(getTeamClassFromSelection(selector))
-
-visualizeTeamSelectionListInto(teams, $('#team_selection'))
 
 console.log('ready lets rock!');
