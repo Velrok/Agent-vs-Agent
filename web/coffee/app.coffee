@@ -17,7 +17,7 @@ setMsBetweenMoves = (ms) ->
 	@stopGameLoop()
 	@startGameLoop()
 
-@log = (agent, msg) ->
+window.log = (agent, msg) ->
 	agentId = gm.getAgentId(agent)
 	if agentId >= 0
 		console.log "agent[#{agentId}] #{gm.moveCount}: #{msg}"
