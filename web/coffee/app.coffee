@@ -1,6 +1,7 @@
 teams = {}
 
 window.registerTeam = (id, constructor) ->
+	console.log("new team registered: #{id}")
 	teams[id] = constructor
 
 gm = new GameMaster()
