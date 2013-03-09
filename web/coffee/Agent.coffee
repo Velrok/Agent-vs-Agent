@@ -1,14 +1,15 @@
 class Agent
-  
+
   # A prototype for any new agent.
   # This serves as a documentation and base implementation for new agents.
-  # @param  numberOfAgents - the number of agents that will be 
+  # @param  numberOfAgents - the number of agents that will be
   #         created this game. The team size.
   # @param  homebase - an array [x,y] describing the homebase coordinates.
-  #         An agent that carrys a point has to move to the home base to 
-  #         score a point. 
+  #         An agent that carrys a point has to move to the home base to
+  #         score a point.
   # @param  id - Number, unique in the team.
-  constructor: (teamSize, homebase, id) ->
+  # @param  teamColor - eather "red" or "blue"
+  constructor: (teamSize, homebase, id, teamColor) ->
     @teamSize = teamSize
     @homebase = homebase
     @id =id
@@ -17,8 +18,8 @@ class Agent
   # This should be used to create a descision.
   # @param  surrounding - an object with the following structure:
   #         keys are optional and one of this: N, NW, W, SW, S, SE, E, NE
-  #         each key, if present will contain a list of strings.
-  #         Each string may be one of this: "Point" or "Agent"
+  #         each key, if present, will contain a list of strings.
+  #         Each string may be one of this: "Point", "RedAgent", "BlueAgent", "RedHomeBase", "BlueHomeBase"
   newSurrounding: (surrounding) ->
 
   # 2. callback
@@ -61,7 +62,7 @@ class Agent
     return ""
 
   # This gets called after a team mate send a message.
-  # @param msg -  The message string.    
+  # @param msg -  The message string.
   receiveMessage: (msg) ->
 
   # This will be displayed ontop the agent.
@@ -92,4 +93,4 @@ class Agent
 
     return describtion
 
-@Agent = Agent
+window.Agent = Agent

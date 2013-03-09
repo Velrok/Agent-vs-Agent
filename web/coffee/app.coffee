@@ -4,9 +4,12 @@ window.registerTeam = (id, constructor) ->
 	console.log("new team registered: #{id}")
 	teams[id] = constructor
 
-gm = new GameMaster()
+gm = null
 timer = null
-msBetweenMoves = 100
+msBetweenMoves = 1000
+
+redTeam = null
+blueTeam = null
 
 getMsBetweenMoves = () ->
 	return msBetweenMoves
@@ -22,10 +25,6 @@ window.log = (agent, msg) ->
 	if agentId >= 0
 		console.log "agent[#{agentId}] #{gm.moveCount}: #{msg}"
 
-startGameLoop = ()->
-	if not timer
-		timer = setInterval(nextMove, msBetweenMoves)
-
 nextMove = () ->
 	hasNextMove = gm.nextMove()
 	if(hasNextMove)
@@ -33,10 +32,14 @@ nextMove = () ->
 	else
 		alert("Game Over")
 
-	$('#teamAScore').html(gm.teamAScore);
-	$('#teamBScore').html(gm.teamBScore);
+	$('#teamAScore').html(gm.getRedTeamScore());
+	$('#teamBScore').html(gm.getBlueTeamScore());
 
 	visualizeGamingFieldInto(gm.gamingField, gaming_field);
+
+startGameLoop = ()->
+	if not timer
+		timer = setInterval(nextMove, msBetweenMoves)
 
 stopGameLoop = ()->
 	clearInterval(timer)
@@ -53,40 +56,34 @@ pauseGame = () ->
 	stopGameLoop()
 
 newGame = ()->
-	gm.newGame()
-
-
-# buttons
-
-$("#new_game").click(newGame)
-$("#start_game_loop").click(resumeGame);
-$("#stop_game_loop").click(pauseGame);
-
-$('#game_speed_slider').change (event) ->
-	setMsBetweenMoves(event.currentTarget.value)
+	console.log "newGame"
+	gm = new GameMaster(new GamingField(8,8), redTeam, blueTeam)
+	resumeGame()
 
 getTeamClassFromSelection = (selectorChangeEvent) ->
 	id = selectorChangeEvent.currentTarget.value
 	return teams[id]
 
-init = ()->
+$(document).ready ()->
 	visualizeTeamSelectionListInto(teams, $('#team_selection'))
 
-$(document).ready ()->
-	init()
+	$("#new_game").click(newGame)
+	$("#start_game_loop").click(resumeGame);
+	$("#stop_game_loop").click(pauseGame);
 
-$('#red_team_selector').ready (element) ->
-	agent = teams[$('#red_team_selector')[0].value]
-	gm.setTeamAAgentClass(agent)
+	$('#game_speed_slider').change (event) ->
+		setMsBetweenMoves(event.currentTarget.value)
 
-$('#red_team_selector').change (selector) ->
-	gm.setTeamAAgentClass(getTeamClassFromSelection(selector))
+	$('#red_team_selector').ready (element) ->
+		redTeam = teams[$('#red_team_selector')[0].value]
 
-$('#blue_team_selector').ready (selector) ->
-	agent = teams[$('#blue_team_selector')[0].value]
-	gm.setTeamBAgentClass(agent)
+	$('#red_team_selector').change (selector) ->
+		redTeam = getTeamClassFromSelection(selector)
 
-$('#blue_team_selector').change (selector) ->
-	gm.setTeamBAgentClass(getTeamClassFromSelection(selector))
+	$('#blue_team_selector').ready (selector) ->
+		blueTeam = teams[$('#blue_team_selector')[0].value]
 
-console.log('ready lets rock!');
+	$('#blue_team_selector').change (selector) ->
+		blueTeam = getTeamClassFromSelection(selector)
+
+	console.log('ready lets rock!');

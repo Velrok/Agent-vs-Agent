@@ -1,53 +1,59 @@
 <html>
 	<head>
 		<!-- Helpers and the all time favorit jquery lib ;)  -->
-		<script type="text/javascript" 
+		<script type="text/javascript"
 			src="libs/jquery.js"></script>
-	
+
 		<!-- Helper -->
-		<script type="text/javascript" 
-			src="compiled/helpers.js"></script>	
+		<script type="text/javascript"
+			src="compiled/helpers.js"></script>
 
 		<!-- include the Agent vs Agent stuff -->
-		<script type="text/javascript" 
+		<script type="text/javascript"
 			src="compiled/Agent.js"></script>
-		<script type="text/javascript" 
-			src="old_stuff/game_objects/GameMaster.js"></script>
-		<script type="text/javascript" 
-			src="old_stuff/game_objects/GamingField.js"></script>
-		<script type="text/javascript" 
-			src="old_stuff/game_objects/Point.js"></script>
+		<script type="text/javascript"
+			src="compiled/game_objects/GameMaster.js"></script>
+		<script type="text/javascript"
+			src="compiled/game_objects/GamingField.js"></script>
+		<script type="text/javascript"
+			src="compiled/game_objects/Point.js"></script>
+		<script type="text/javascript"
+			src="compiled/game_objects/RedHomeBase.js"></script>
+		<script type="text/javascript"
+			src="compiled/game_objects/BlueHomeBase.js"></script>
 
 		<!-- functions in this file are responsable to convert js objects into html. -->
-		<script type="text/javascript" 
+		<script type="text/javascript"
 			src="old_stuff/gaming_field_entity_visualizer_functions.js"></script>
-		<script type="text/javascript" 
+		<script type="text/javascript"
 			src="old_stuff/visualize.js"></script>
 
-		<link rel="stylesheet" type="text/css" 
+		<link rel="stylesheet" type="text/css"
 			href="style/default.css">
 
 
 		<!-- This js code is specific for this html site. -->
-		<script type="text/javascript" 
+		<script type="text/javascript"
 			src="compiled/app.js"></script>
 
 		<!-- including teams -->
-		<script type="text/javascript" 
-			src="teams/TestTeam.js"></script>
+		<script type="text/javascript"
+			src="compiled/teams/DebugTeam.js"></script>
 
-		<script type="text/javascript" 
+		<!--
+		<script type="text/javascript"
 			src="teams/Stephan.js"></script>
 
-		<script type="text/javascript" 
+		<script type="text/javascript"
 			src="teams/velrok.js"></script>
+		-->
 
 	</head>
 
 	<body>
 
 		<div id="page">
-			
+
 			<div id="page_header">
 				<span id="teamAScore" class="score">0</span>
 				<span id="teamBScore" class="score">0</span>
@@ -87,13 +93,13 @@
 			</div>
 
 			<hr>
-			
+
 			<div class="clear"> </div>
-			
+
 		</div>
 
 
-		
+
 	</body>
 
 </html>

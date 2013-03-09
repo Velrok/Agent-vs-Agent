@@ -4,7 +4,7 @@
 
   Agent = (function() {
 
-    function Agent(teamSize, homebase, id) {
+    function Agent(teamSize, homebase, id, teamColor) {
       this.teamSize = teamSize;
       this.homebase = homebase;
       this.id = id;
@@ -68,6 +68,6 @@
 
   })();
 
-  this.Agent = Agent;
+  window.Agent = Agent;
 
 }).call(this);
